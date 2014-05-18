@@ -12,15 +12,15 @@
 				<form action="lovecalc.php" method="POST">
 				<input type="text" name="name_one" placeholder="Your Name"><br>
 				<input type="text" name="name_two" placeholder="Your Love Name">
-				<input type="submit" value="Calculate"><br><br>
+				<input type="submit" name="submit" value="Calculate"><br><br>
 			</div>
 			<div class="result_area">
-			<?php 
+			<?php if (isset($_POST["submit"])):
 				$string_one = $_POST["name_one"]; 
 				$string_two = $_POST["name_two"];
 				similar_text($string_one, $string_two, $result);
 				echo "You Two Love each other in Percentage: <br><br><span>".$result."%</span>";
-			?>
+			endif; ?>
 			</div>
 		</div>
 
