@@ -16,10 +16,20 @@
 			</div>
 			<div class="result_area">
 			<?php 
-				$string_one = $_POST["name_one"]; 
-				$string_two = $_POST["name_two"];
-				similar_text($string_one, $string_two, $result);
-				echo "You Two Love each other in Percentage: <br><br><span>".$result."%</span>";
+				
+				if(isset(POST['name_one'])&&isset(POST['name_two'])){
+					$string_one = $_POST["name_one"]; 
+					$string_two = $_POST["name_two"];
+					
+					if (!empty(POST['name_one'])!empty['name_tow']){
+				
+						similar_text($string_one, $string_two, $result);
+						echo "You Two Love each other in Percentage: <br><br><span>".$result."%</span>";
+					}else{
+						echo "Please fill up the Name box first";
+					}
+				
+				}
 			?>
 			</div>
 		</div>
