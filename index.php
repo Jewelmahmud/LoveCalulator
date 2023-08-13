@@ -1,38 +1,77 @@
-<html>
-	<head>
-		<title>This is a simple love clculator</title>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		<link href='http://fonts.googleapis.com/css?family=Fascinate+Inline' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Allan' rel='stylesheet' type='text/css'>
-	</head>
-	<body>
-		<div class="main fix">
-			<h2 id="id">Calculate your Love Using this App</h2>
-			<div class="form_area fix">
-				<form action="lovecalc.php" method="POST">
-				<input type="text" name="name_one" placeholder="Your Name"><br>
-				<input type="text" name="name_two" placeholder="Your Love Name">
-				<input type="submit" value="Calculate"><br><br>
-			</div>
-			<div class="result_area">
-			<?php 
-				
-				if(isset(POST['name_one'])&&isset(POST['name_two'])){
-					$string_one = $_POST["name_one"]; 
-					$string_two = $_POST["name_two"];
-					
-					if (!empty(POST['name_one'])!empty['name_tow']){
-				
-						similar_text($string_one, $string_two, $result);
-						echo "You Two Love each other in Percentage: <br><br><span>".$result."%</span>";
-					}else{
-						echo "Please fill up the Name box first";
-					}
-				
-				}
-			?>
-			</div>
-		</div>
+<?php
+$questions = array(
+    "Is she/he caring when you are sick?",
+    "Does she/he celebrate your successes?",
+    "Do you have similar interests?",
+    "Do you trust each other?",
+    "Do you communicate openly?",
+    "Do you share common values?",
+    "Do you enjoy spending time together?",
+    "Do you support each other's goals?",
+    "Do you resolve conflicts effectively?",
+    "Do you make each other laugh?",
+    "Do you feel comfortable being yourself around them?",
+    "Do you feel a deep emotional connection?"
+);
 
-	</body>
+
+function calculateLoveScore($answers) {
+    $totalQuestions = count($answers);
+    $positiveAnswers = 0;
+
+    foreach ($answers as $answer) {
+        if ($answer === 'yes') {
+            $positiveAnswers++;
+        }
+    }
+
+    $loveScore = ($positiveAnswers / $totalQuestions) * 100;
+    return round($loveScore);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name1 = isset($_POST['name1']) ? $_POST['name1'] : '';
+    $name2 = isset($_POST['name2']) ? $_POST['name2'] : '';
+
+    $answers = array();
+    foreach ($questions as $question) {
+        $answer = isset($_POST[$question]) ? $_POST[$question] : 'no';
+        array_push($answers, $answer);
+    }
+
+    $loveScore = calculateLoveScore($answers);
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Love Calculator</title>
+</head>
+<body>
+    <h1>Love Calculator</h1>
+    
+    <form method="post">
+        <label for="name1">Your name: </label>
+        <input type="text" name="name1" required><br><br>
+        
+        <label for="name2">Your love's name: </label>
+        <input type="text" name="name2" required><br><br>
+        
+        <?php foreach ($questions as $question) { ?>
+            <label for="<?php echo $question; ?>"><?php echo $question; ?></label>
+            <select name="<?php echo $question; ?>">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        <?php } ?>
+        
+        <button type="submit">Calculate</button>
+    </form>
+
+    <?php if (isset($loveScore)) { ?>
+        <h2>Love Score: <?php echo $loveScore; ?>%</h2>
+    <?php } ?>
+</body>
 </html>
