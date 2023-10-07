@@ -58,4 +58,4 @@ Our maintainers will review your pull request and provide feedback. Together, we
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Feel free to use, modify, and share these calculators as per the terms of the license.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details. Feel free to use, modify, and share these calculators as per the terms of the license.
